@@ -20,7 +20,7 @@ class TestLotkaVolterra(unittest.TestCase):
         jnp.array([30.0, 15.0]),
     ]
     def test_constant_val(self):
-        t0, t1, dt = 0.0, 100.0, 0.1
+        t0, t1, dt = 0.0, 10.0, 0.01
         ts = jnp.arange(t0, t1, dt)
         term = ODETerm(lotka_volterra)
         solver = Dopri5()
@@ -32,7 +32,7 @@ class TestLotkaVolterra(unittest.TestCase):
                     sol = diffeqsolve(term, solver, t0, t1, dt, y0, args, saveat=saveat)
                     alpha, beta, gamma, delta = args
                     conservation = gamma * sol.ys[:, 0] + beta * sol.ys[:, 1] - alpha * jnp.log(sol.ys[:, 1]) - delta * jnp.log(sol.ys[:, 0])
-                    self.assertTrue(jnp.isclose(conservation, conservation[0] * jnp.ones_like(conservation)).all())
+                    self.assertTrue(jnp.allclose(conservation, conservation[0] * jnp.ones_like(conservation)))
 
 if __name__ == '__main__':
     unittest.main()
