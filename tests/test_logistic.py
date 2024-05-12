@@ -46,7 +46,7 @@ class TestLogistic(unittest.TestCase):
                     term = ODETerm(logistic)
                     sol = diffeqsolve(term, solver, t0, t1, dt, y0, args, saveat=saveat)
                     sol_exact = exact_sol(ts, y0, args)
-                    self.assertTrue(jnp.isclose(sol.ys, sol_exact).all())
+                    self.assertTrue(jnp.allclose(sol.ys, sol_exact))
     
 if __name__ == '__main__':
     unittest.main()
