@@ -33,3 +33,6 @@ class TestLotkaVolterra(unittest.TestCase):
                     alpha, beta, gamma, delta = args
                     conservation = gamma * sol.ys[:, 0] + beta * sol.ys[:, 1] - alpha * jnp.log(sol.ys[:, 1]) - delta * jnp.log(sol.ys[:, 0])
                     self.assertTrue(jnp.isclose(conservation, conservation[0] * jnp.ones_like(conservation)).all())
+
+if __name__ == '__main__':
+    unittest.main()
